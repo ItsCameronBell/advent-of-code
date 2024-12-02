@@ -26,3 +26,26 @@ function part1(left: number[], right: number[]): number {
 
   return totalDifference;
 }
+
+/**
+ * Calculates the total contribution of elements from the first array based on their frequencies in the second array.
+ * The solution to the second part of the 1st day of the Advent of Code 2024.
+ *
+ * The function computes the product of each element in the first array with the number of times it
+ * appears in the second array, then sums these products to calculate the total contribution of elements from the first array.
+ *
+ * @param {number[]} left - The first array of numbers.
+ * @param {number[]} right - The second array of numbers.
+ * @returns {number} The total contribution of elements from the first array based on their frequency in the second array.
+ */
+function part2(left: number[], right: number[]): number {
+  if (left.length !== right.length) {
+    throw new Error("Input arrays must have the same length");
+  }
+
+  const counts = left.map(
+    (item) => item * right.filter((value) => value === item).length
+  );
+
+  return counts.reduce((acc, curr) => acc + curr, 0);
+}
