@@ -2,26 +2,27 @@
 // https://adventofcode.com/2024/day/1
 
 /**
- * This function takes two arrays of integers, left and right, and returns
- * the sum of the absolute differences between corresponding elements.
+ * Calculates the total difference between corresponding elements of two sorted arrays of equal length.
+ * The solution to the first part of the 1st day of the Advent of Code 2024.
  *
- * @param {number[]} left An array of integers.
- * @param {number[]} right An array of integers.
- * @returns {number} The sum of the absolute differences between
- *     corresponding elements of left and right.
+ * The function sorts both input arrays and computes the sum of absolute differences
+ * between each pair of corresponding elements.
+ *
+ * @param {number[]} left The first array of numbers.
+ * @param {number[]} right The second array of numbers.
+ * @returns {number} The sum of absolute differences between corresponding elements of the sorted arrays.
  */
 function part1(left: number[], right: number[]): number {
-  let sorted_left = left.sort((a, b) => a - b);
-  let sorted_right = right.sort((a, b) => a - b);
-
-  let result: number[] = [];
-  for (let i = 0; i < sorted_left.length; i++) {
-    let a: number = sorted_left[i];
-    let b: number = sorted_right[i];
-
-    result.push(Math.abs(a - b));
+  if (left.length !== right.length) {
+    throw new Error("Input arrays must have the same length");
   }
-  let sum: number = 0;
-  result.forEach((v) => (sum += v));
-  return sum;
+  const sortedLeft = left.slice().sort((a, b) => a - b);
+  const sortedRight = right.slice().sort((a, b) => a - b);
+
+  let totalDifference = 0;
+  for (let i = 0; i < sortedLeft.length; i++) {
+    totalDifference += Math.abs(sortedLeft[i] - sortedRight[i]);
+  }
+
+  return totalDifference;
 }
